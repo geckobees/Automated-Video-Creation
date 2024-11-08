@@ -2,14 +2,29 @@ import os
 from tkinter import PROJECTING
 import ffmpeg, random, gtts, pysrt
 from pydub import AudioSegment
-import speech_recognition as sr
-from google.cloud import speech
 import assemblyai as aai
 import subprocess
+from openai import OpenAI
 
 
 aai.settings.api_key = "e3a5f4dce2e945de8510fde3e428d141"
 audio_length = 0
+
+client = OpenAI(api_key = "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")
+
+
+
+def gen_story(ai_model, prompt):
+    
+    response = client.chat.completions.create(
+        model=ai_model,  
+        messages=[        
+            {"role": "user", "content": prompt}
+        ]
+    )
+    return response.choices[0].message.content
+
+
 
 
 
@@ -31,11 +46,6 @@ def create_audio(text, language, slow, output_file, speed):
     return wav_output  # Return WAV file path
 
 
-def create_story(input_story):
-
-    story = input_story
-
-    return story
 
 
 def trim(in_file, out_file, audio_file, start, end):
@@ -112,12 +122,11 @@ def transcribe_audio(audio_file, srt_file):
 
 
 
-def main():
-    _story = input("Enter Story: ")
+def main(output):
 
-    story = create_story(_story)
+    story = gen_story("gpt-3.5-turbo", "write a suspenseful story about fantasy and magic.")
 
-    audio = create_audio(story, "en", False, "blicky", 1.2) # .wav
+    audio = create_audio(story, "en", False, "blicky", 1.2) # .wav 
     transcript = transcribe_audio(audio, "out.srt")
 
 
@@ -126,22 +135,25 @@ def main():
         _audio = AudioSegment.from_file(audio)
         audio_length = len(_audio) / 1000
 
-        rand = random.randint(0, 480)
-        out = trim("input.mp4", "out.mp4", audio, rand, rand + audio_length)
+        rand = random.randint(0, 2000)
+        out = trim("input_rs.mp4", "out.mp4", audio, rand, rand + audio_length)
 
         resize_video("out.mp4", "scaled.mp4", 540, 1080, 730, 1080 // 2)
 
-        add_styled_subtitles("scaled.mp4", "out.srt", "output.mp4")
+        add_styled_subtitles("scaled.mp4", "out.srt", output)
 
         # Clean up intermediate files
         os.remove(audio)  
         os.remove("blicky.mp3")
         os.remove("out.mp4")
         os.remove("scaled.mp4")
+        os.remove("out.srt")
     else:
         print("Transcription failed.")
 
 
-main()
 
 
+
+for i in range(10):
+    main(f"video{i}.mp4")
