@@ -136,7 +136,7 @@ def main(output):
         audio_length = len(_audio) / 1000
 
         rand = random.randint(0, 2000)
-        out = trim("input_rs.mp4", "out.mp4", audio, rand, rand + audio_length)
+        out = trim("background.mp4", "out.mp4", audio, rand, rand + audio_length)
 
         resize_video("out.mp4", "scaled.mp4", 540, 1080, 730, 1080 // 2)
 
