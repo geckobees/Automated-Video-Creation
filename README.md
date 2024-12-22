@@ -1,9 +1,9 @@
-# Create a Reddit Story Video
+# Create a Brainrot Story Video
 
 
-##  You can have any video of your choice playing in the background.
-this is just a project i made for fun, so I may update this in the future.
-all you gotta do is just put the background gameplay in and run the script!
+You can have any video of your choice playing in the background.
+This is just a project i made for fun, so I may update this in the future.
+All you gotta do is just put the background gameplay in and run the script!
 
 ### dependencies:
 * assemblyai
