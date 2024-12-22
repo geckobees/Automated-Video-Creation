@@ -7,10 +7,10 @@ import subprocess
 from openai import OpenAI
 
 
-aai.settings.api_key = "e3a5f4dce2e945de8510fde3e428d141"
+aai.settings.api_key = "your assemblyai key here"
 audio_length = 0
 
-client = OpenAI(api_key = "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")
+client = OpenAI(api_key = "your openai api key here")
 
 
 
