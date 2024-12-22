@@ -1,6 +1,6 @@
 import os
 from tkinter import PROJECTING
-import ffmpeg, random, gtts, pysrt
+import ffmpeg, random, gtts
 from pydub import AudioSegment
 import assemblyai as aai
 import subprocess
