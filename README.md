@@ -31,7 +31,7 @@ This project is a Python script that automatically generates short videos with A
     *   Replace `"your assemblyai key here"` in `reddit_stories.py` with your AssemblyAI API key.
     *   Replace `"your openai api key here"` in `reddit_stories.py` with your OpenAI API key.
 3.  **Background Video:** Place a background video named `background.mp4` in the same directory as the script.
-4.  **Run the Script:** Execute the `reddit_stories.py` script. It will generate 10 videos named `video0.mp4` through `video9.mp4`.
+4.  **Run the GUI:** Execute the `gui.py` script to launch the graphical user interface.
 
 ## Notes
 

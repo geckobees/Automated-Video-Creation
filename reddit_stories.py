@@ -122,7 +122,7 @@ def transcribe_audio(audio_file, srt_file):
 
 
 
-def main(output):
+def main(output_file):
 
     story = gen_story("gpt-3.5-turbo", "write a suspenseful story about fantasy and magic.")
 
@@ -155,5 +155,4 @@ def main(output):
 
 
 
-for i in range(10):
-    main(f"video{i}.mp4")
+
