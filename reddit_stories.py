@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 from tkinter import PROJECTING
 import ffmpeg, random, gtts
 from pydub import AudioSegment
@@ -7,10 +9,10 @@ import subprocess
 from openai import OpenAI
 
 
-aai.settings.api_key = "your assemblyai key here"
+aai.settings.api_key = os.getenv("AAI_API_KEY")
 audio_length = 0
 
-client = OpenAI(api_key = "your openai api key here")
+client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
 
 
 
@@ -23,7 +25,6 @@ def gen_story(ai_model, prompt):
         ]
     )
     return response.choices[0].message.content
-
 
 
 
@@ -67,6 +68,7 @@ def trim(in_file, out_file, audio_file, start, end):
     audio_stream = video_and_audio[1]  # Audio stream
 
     output = ffmpeg.output(video_stream, audio_stream, out_file, format="mp4")
+    print(output.compile())
     output.run()
 
 
@@ -96,9 +98,9 @@ def add_styled_subtitles(input_file, subtitle_file, output_file):
     command = [
         'ffmpeg',
         '-i', input_file,  # Input video file
-        '-vf', f"subtitles={subtitle_file}:force_style='Allignment=0,MarginV=90,MarginL=0,FontSize=16,PrimaryColour=&HFFFFFF&'", 
+        '-vf', f"subtitles={subtitle_file}:force_style='Allignment=0,MarginV=90,MarginL=0,FontSize=16,PrimaryColour=&HFFFFFF&'",
         '-c:a', 'copy',
-        output_file         
+        output_file + ".mp4"
     ]
 
     try:
@@ -122,9 +124,14 @@ def transcribe_audio(audio_file, srt_file):
 
 
 
-def main(output_file):
+def main(output_file, custom_prompt=None, user_story=None):
 
-    story = gen_story("gpt-3.5-turbo", "write a suspenseful story about fantasy and magic.")
+    if user_story:
+        story = user_story
+    elif custom_prompt:
+        story = gen_story("gpt-3.5-turbo", custom_prompt)
+    else:
+        story = gen_story("gpt-3.5-turbo", "write a suspenseful story about fantasy and magic.")
 
     audio = create_audio(story, "en", False, "blicky", 1.2) # .wav 
     transcript = transcribe_audio(audio, "out.srt")
@@ -140,7 +147,7 @@ def main(output_file):
 
         resize_video("out.mp4", "scaled.mp4", 540, 1080, 730, 1080 // 2)
 
-        add_styled_subtitles("scaled.mp4", "out.srt", output)
+        add_styled_subtitles("scaled.mp4", "out.srt", output_file)
 
         # Clean up intermediate files
         os.remove(audio)  
@@ -150,9 +157,3 @@ def main(output_file):
         os.remove("out.srt")
     else:
         print("Transcription failed.")
-
-
-
-
-
-

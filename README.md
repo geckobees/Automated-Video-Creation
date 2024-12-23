@@ -11,7 +11,8 @@ This project is a Python script that automatically generates short videos with A
     *   A background video is trimmed to match the length of the generated audio.
     *   The trimmed video is resized to a vertical format (540x1080).
     *   The generated subtitles are added to the video.
-5.  **Output:** The final video is saved as an MP4 file.
+5.  **GUI:** The `gui.py` script is used to launch the graphical user interface.
+6.  **Output:** The final video is saved as an MP4 file.
 
 ## Dependencies
 
