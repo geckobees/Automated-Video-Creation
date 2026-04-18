@@ -32,10 +32,10 @@ This project is a Python script that automatically generates short videos with A
     *   Replace `"your assemblyai key here"` in `reddit_stories.py` with your AssemblyAI API key.
     *   Replace `"your openai api key here"` in `reddit_stories.py` with your OpenAI API key.
 3.  **Background Video:** Place a background video named `background.mp4` in the same directory as the script.
-4.  **Run the GUI:** Execute the `gui.py` script to launch the graphical user interface.
 
 ## Notes
 
 *   The script generates a random start point for the background video.
 *   The output videos are in a vertical format suitable for platforms like TikTok or Instagram Reels.
 *   This project is intended for fun and may be updated in the future.
+*   The GUI is not fully working
