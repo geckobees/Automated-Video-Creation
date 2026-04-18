@@ -1,4 +1,4 @@
-# Automated Story Video Creation
+# Automated Video Creation
 
 This project is a Python script that automatically generates short videos with AI-narrated stories, using a background video of your choice. It leverages several libraries to generate a story, convert it to audio, transcribe the audio, and combine it with a background video.
 
@@ -39,3 +39,4 @@ This project is a Python script that automatically generates short videos with A
 *   The output videos are in a vertical format suitable for platforms like TikTok or Instagram Reels.
 *   This project is intended for fun and may be updated in the future.
 *   The GUI is not fully working
+*   Feel free to replace the gTTS voice with an elevenlabs voice
